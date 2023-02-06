@@ -1,0 +1,42 @@
+.dropdown-toggle {
+  cursor: pointer;
+}
+.navbar-dark .dropdown-toggle::after {
+  border-top: 0.3em solid rgba(255, 255, 255, 0.7);
+}
+
+.body-container {
+  max-width: 700px;
+}
+
+.main-wrapper {
+  overflow: hidden;
+}
+
+.off-menu {
+  position: fixed;
+  top: 56px;
+  left: -200px;
+  bottom: 0;
+  width: 200px;
+  color: #fff;
+  transition: 0.2s all;
+}
+
+.off-menu-sibling {
+  transition: 0.2s all;
+  padding-left: 0;
+}
+
+.off-menu.show {
+  left: 0;
+}
+
+.off-menu.show + .off-menu-sibling {
+  padding-left: 200px;
+}
+
+.navbar-toggler {
+  display: block !important;
+  margin-right: 20px !important;
+}
