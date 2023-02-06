@@ -1,26 +1,32 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import { toast } from "react-toastify";
 
-import axios from 'axios';
+import axios from "axios";
 
 export default function MenuCreate({ afterSubmit, positionId }) {
-  const [name, setName] = useState('');
-  const [link, setLink] = useState('#');
-  const [ordering, setOrdering] = useState('0');
+  const [name, setName] = useState("");
+  const [link, setLink] = useState("#");
+  const [ordering, setOrdering] = useState("0");
   const [newTab, setNewTab] = useState(false);
 
   const submit = () => {
     axios
-      .post('http://localhost:8000/menus', { name, link, ordering, positionId, newTab })
+      .post("http://localhost:8000/menus", {
+        name,
+        link,
+        ordering,
+        positionId: Number(positionId),
+        newTab,
+      })
       .then((res) => {
-        toast.success('Амжилттай нэмэгдлээ');
+        toast.success("Амжилттай нэмэгдлээ");
         afterSubmit(res.data);
       })
       .catch((err) => {
         console.log(err);
-        toast.error('Алдаа гарлаа');
+        toast.error("Алдаа гарлаа");
       });
   };
 

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function NavbarMenuItem({ item }) {
   return (
@@ -10,7 +10,7 @@ function NavbarMenuItem({ item }) {
   );
 }
 
-export default function NavbarMenu({ items = [], title = '', onToggle }) {
+export default function NavbarMenu({ items = [], title = "", onToggle }) {
   return (
     <>
       <button className="navbar-toggler" onClick={onToggle}>

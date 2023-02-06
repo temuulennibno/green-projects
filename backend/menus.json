@@ -1,10 +1,1 @@
-[
-  {
-    "id": 1,
-    "name": "Home",
-    "link": "/",
-    "newTab": false,
-    "positionId": 1,
-    "ordering": 0
-  }
-]
+[{"id":1,"name":"Home","link":"/","newTab":false,"positionId":1,"ordering":0},{"id":2,"name":"Categories","link":"/categories","newTab":false,"positionId":"3","ordering":"0"},{"id":3,"name":"Categoreis","link":"/categories","newTab":false,"positionId":3,"ordering":"0"},{"id":4,"name":"Menu Positions","link":"/menu-positions","newTab":false,"positionId":3,"ordering":"0"}]
