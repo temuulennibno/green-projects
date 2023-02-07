@@ -1,5 +1,7 @@
 @import url(https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css);
-
+* {
+  transition: 0.2s all;
+}
 .wrapper {
   width: 100%;
   height: 100vh;
@@ -68,4 +70,71 @@ li {
 
 .social-icon.dark {
   color: #f0f0f0;
+}
+
+.dark-mode-toggle {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
+.dark-mode-toggle__icon {
+  width: 50px;
+  height: auto;
+  color: #f2c94c;
+  transition: color 0.2s linear;
+}
+
+.dark-mode-toggle__icon:hover {
+  color: #f6c11f;
+}
+
+.dark-mode-toggle__icon--moon {
+  color: white;
+  opacity: 0.6;
+  transition: opacity 0.2s linear, color 0.2s linear;
+}
+
+.dark-mode-toggle__icon--moon:hover {
+  color: white;
+  opacity: 0.8;
+}
+
+.dark-mode-toggle__rays {
+  transition: opacity 0.2s linear 0.2s;
+}
+
+.dark-mode-toggle__icon--moon .dark-mode-toggle__rays {
+  transition: opacity 0.2s linear;
+  opacity: 0;
+}
+
+.dark-mode-toggle__cut-out {
+  transition: transform 0.5s cubic-bezier(0.54, -0.42, 0.29, 1.3);
+}
+
+.dark-mode-toggle__icon--moon .dark-mode-toggle__cut-out {
+  transform: translateX(-30%);
+  transition: transform 0.5s cubic-bezier(0.21, 0.17, 0.43, 1.43);
+}
+
+.theme--dark {
+  background: var(--dark);
+}
+
+:root {
+  --dark: #0e273c;
+  --light: #efefef;
+}
+
+.toggler {
+  position: fixed;
+  right: 10px;
+  top: 10px;
+}
+.dark-mode-toggle__icon {
+  width: 50px;
+  cursor: pointer;
 }
