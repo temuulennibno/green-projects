@@ -1,7 +1,7 @@
 import "./styles/bootstrap.min.css";
 import "./styles/styles.css";
 import Navbar from "./components/Navbar";
-import { useEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Articles from "./pages/Articles";
@@ -14,6 +14,8 @@ import Signout from "./pages/Signout";
 import MenuPositions from "./pages/MenuPositions";
 import Menus from "./pages/Menus";
 import axios from "axios";
+import DynamicModal from "./components/utils/DynamicModal";
+import { ModalProvider } from "./contexts/ModalContext";
 
 export default function App() {
   const [menuShow, setMenuShow] = useState(false);
@@ -47,7 +49,7 @@ export default function App() {
   // }
 
   return (
-    <>
+    <ModalProvider>
       <Navbar onToggle={() => setMenuShow(!menuShow)} />
       <div className="main-wrapper">
         <div className={`off-menu bg-dark ${menuShow && "show"}`}>
@@ -71,6 +73,6 @@ export default function App() {
           </Routes>
         </div>
       </div>
-    </>
+    </ModalProvider>
   );
 }

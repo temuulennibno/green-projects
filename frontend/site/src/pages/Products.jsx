@@ -1,11 +1,33 @@
-import { useEffect, useState } from 'react';
-import axios from 'axios';
-import dayjs from 'dayjs';
-import currencyFormatter from '../utils/currencyFormatter';
+import { useEffect, useState } from "react";
+import axios from "axios";
+import currencyFormatter from "../utils/currencyFormatter";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import relateTime from 'dayjs/plugin/relativeTime';
-import { Link, useLocation, useNavigate } from 'react-router-dom';
+import dayjs from "dayjs";
+import relateTime from "dayjs/plugin/relativeTime";
+import updateLocale from "dayjs/plugin/updateLocale";
+import "dayjs/locale/mn";
+
 dayjs.extend(relateTime);
+dayjs.locale("mn");
+dayjs.extend(updateLocale);
+dayjs.updateLocale("mn", {
+  relativeTime: {
+    future: "%s дараа",
+    past: "%s өмнө",
+    s: "хэдхэн хоромын",
+    m: "1 минутын",
+    mm: "%d минутын",
+    h: "1 цагын",
+    hh: "%d цагын",
+    d: "1 өдрийн",
+    dd: "%d өдрийн",
+    M: "1 сарын",
+    MM: "%d сарын",
+    y: "1 жилийн",
+    yy: "%d жилийн",
+  },
+});
 
 /**
  * Baraanii jagsaalt hesgiin huudas
@@ -20,19 +42,19 @@ export default function Products() {
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(10);
 
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
-  const [locationQuery, setLocationQuery] = useState('');
+  const [locationQuery, setLocationQuery] = useState("");
 
   const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
     const newQuery = new URLSearchParams();
-    newQuery.set('pageSize', pageSize);
-    newQuery.set('page', currentPage);
-    if (searchQuery !== '') {
-      newQuery.set('q', searchQuery);
+    newQuery.set("pageSize", pageSize);
+    newQuery.set("page", currentPage);
+    if (searchQuery !== "") {
+      newQuery.set("q", searchQuery);
     }
     setLocationQuery(newQuery.toString());
   }, [pageSize, currentPage, searchQuery]);
@@ -49,14 +71,14 @@ export default function Products() {
 
   useEffect(() => {
     const searchParams = new URLSearchParams(location.search);
-    if (searchParams.has('page')) {
-      setCurrentPage(Number(searchParams.get('page')));
+    if (searchParams.has("page")) {
+      setCurrentPage(Number(searchParams.get("page")));
     }
-    if (searchParams.has('pageSize')) {
-      setPageSize(Number(searchParams.get('pageSize')));
+    if (searchParams.has("pageSize")) {
+      setPageSize(Number(searchParams.get("pageSize")));
     }
-    if (searchParams.has('q')) {
-      setSearchQuery(searchParams.get('q'));
+    if (searchParams.has("q")) {
+      setSearchQuery(searchParams.get("q"));
     }
     if (isReady) {
       getResults();
@@ -67,14 +89,16 @@ export default function Products() {
 
   const getResults = () => {
     const urlParams = new URLSearchParams();
-    urlParams.set('pageSize', pageSize);
-    urlParams.set('page', currentPage);
-    if (searchQuery !== '') {
-      urlParams.set('q', searchQuery);
+    urlParams.set("pageSize", pageSize);
+    urlParams.set("page", currentPage);
+    if (searchQuery !== "") {
+      urlParams.set("q", searchQuery);
     }
-    axios.get(`http://localhost:8000/products?${locationQuery.toString()}`).then((res) => {
-      setPage(res.data);
-    });
+    axios
+      .get(`http://localhost:8000/products?${locationQuery.toString()}`)
+      .then((res) => {
+        setPage(res.data);
+      });
   };
 
   if (!page) {
@@ -89,7 +113,7 @@ export default function Products() {
     let result = [];
     // first page adding
     result.push(
-      <li className={`page-item ${1 === page.page && 'active'}`}>
+      <li className={`page-item ${1 === page.page && "active"}`}>
         <a className="page-link" href="#">
           1
         </a>
@@ -125,7 +149,7 @@ export default function Products() {
     }
     // last page adding
     result.push(
-      <li className={`page-item ${page.totalPages === page.page && 'active'}`}>
+      <li className={`page-item ${page.totalPages === page.page && "active"}`}>
         <a className="page-link" href="#">
           {page.totalPages}
         </a>
@@ -178,9 +202,15 @@ export default function Products() {
                     <img src={product.imageUrl} alt={product.name} />
                   </div>
                   <div className="product-card-desc">
-                    <div className="product-card-date">{dayjs(Number(product.createdAt) * 1000).fromNow()}</div>
+                    <div className="product-card-date">
+                      {dayjs(Number(product.createdAt) * 1000)
+                        .locale("mn")
+                        .fromNow()}
+                    </div>
                     <div className="product-card-name">{product.name}</div>
-                    <div className="product-card-price">{currencyFormatter(product.price)}</div>
+                    <div className="product-card-price">
+                      {currencyFormatter(product.price)}
+                    </div>
                   </div>
                 </div>
               </div>
@@ -190,14 +220,24 @@ export default function Products() {
         <div>
           <nav aria-label="..." className="my-4">
             <ul className="pagination pagination-lg justify-content-center">
-              <li className={`page-item ${currentPage === 1 && 'disabled'}`}>
-                <Link to={`/products?pageSize=${pageSize}&page=${currentPage - 1}`} className="page-link">
+              <li className={`page-item ${currentPage === 1 && "disabled"}`}>
+                <Link
+                  to={`/products?pageSize=${pageSize}&page=${currentPage - 1}`}
+                  className="page-link"
+                >
                   ‹
                 </Link>
               </li>
               {getPaginations()}
-              <li className={`page-item ${currentPage === page.totalPages && 'disabled'}`}>
-                <Link to={`/products?pageSize=${pageSize}&page=${currentPage + 1}`} className="page-link">
+              <li
+                className={`page-item ${
+                  currentPage === page.totalPages && "disabled"
+                }`}
+              >
+                <Link
+                  to={`/products?pageSize=${pageSize}&page=${currentPage + 1}`}
+                  className="page-link"
+                >
                   ›
                 </Link>
               </li>
