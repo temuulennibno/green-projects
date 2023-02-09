@@ -1,7 +1,5 @@
 import { useEffect, useRef } from "react";
 
-const token = 1234;
-
 export default function RefDemo() {
   const value = useRef("");
 

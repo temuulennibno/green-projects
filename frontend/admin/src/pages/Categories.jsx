@@ -2,12 +2,10 @@ import { useEffect, useState } from "react";
 import CategoryList from "../components/Categories/CategoryList";
 import Heading from "../components/Heading";
 import { toast } from "react-toastify";
-import DynamicModal from "../components/utils/DynamicModal";
 import CategoryCreate from "../components/Categories/CategoryCreate";
 import CategoryEdit from "../components/Categories/CategoryEdit";
 import axios from "axios";
-// import useQuery from '../hooks/useQuery';
-import { useLocation, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useContext } from "react";
 import { ModalContext } from "../contexts/ModalContext";
 

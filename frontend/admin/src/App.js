@@ -53,14 +53,18 @@ export default function App() {
       <Navbar onToggle={() => setMenuShow(!menuShow)} />
       <div className="main-wrapper">
         <div className={`off-menu bg-dark ${menuShow && "show"}`}>
-          <ul></ul>
-          {menus.map((menu) => {
-            return (
-              <li key={menu.id}>
-                <Link to={menu.link}>{menu.name}</Link>
-              </li>
-            );
-          })}
+          <ul>
+            <li>
+              <Link to={"/"}>Home</Link>
+            </li>
+            {menus.map((menu) => {
+              return (
+                <li key={menu.id}>
+                  <Link to={menu.link}>{menu.name}</Link>
+                </li>
+              );
+            })}
+          </ul>
         </div>
         <div className="off-menu-sibling">
           <Routes>

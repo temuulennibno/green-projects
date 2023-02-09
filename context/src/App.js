@@ -2,11 +2,14 @@ import "./App.css";
 import { useState } from "react";
 import Footer from "./components/Footer";
 import { createContext } from "react";
+import { useEffect } from "react";
 
 export const ThemeContext = createContext("");
 
 function App() {
-  const [theme, setTheme] = useState("light");
+  const [theme, setTheme] = useState(
+    localStorage.getItem("themeColor") || "light"
+  );
   const toggleTheme = () => {
     if (theme === "light") {
       setTheme("dark");
@@ -14,6 +17,11 @@ function App() {
       setTheme("light");
     }
   };
+
+  useEffect(() => {
+    localStorage.setItem("themeColor", theme);
+  }, [theme]);
+
   return (
     <ThemeContext.Provider value={theme}>
       <div className={"wrapper " + theme}>
@@ -49,8 +57,8 @@ function App() {
             <g
               className="dark-mode-toggle__rays"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
             >
               <line x1="12" x2="12" y1="3" y2="1" />
               <line x1="21" x2="23" y1="12" y2="12" />
@@ -60,8 +68,8 @@ function App() {
             <g
               className="dark-mode-toggle__rays"
               stroke="currentColor"
-              stroke-width="2"
-              stroke-linecap="round"
+              strokeWidth="2"
+              strokeLinecap="round"
               transform="rotate(45 12 12)"
             >
               <line x1="12" x2="12" y1="3" y2="1" />
