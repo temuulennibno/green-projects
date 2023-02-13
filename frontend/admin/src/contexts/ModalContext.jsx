@@ -1,7 +1,13 @@
-import { createContext, useState } from "react";
+import { createContext, useContext, useState } from "react";
 import DynamicModal from "../components/utils/DynamicModal";
 
 export const ModalContext = createContext(null);
+
+export const useModal = () => {
+  const { setModalContent, setModalShow, setModalTitle } =
+    useContext(ModalContext);
+  return { setModalContent, setModalShow, setModalTitle };
+};
 
 export const ModalProvider = ({ children }) => {
   const [modalShow, setModalShow] = useState(false);
