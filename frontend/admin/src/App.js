@@ -1,7 +1,7 @@
 import "./styles/bootstrap.min.css";
 import "./styles/styles.css";
 import Navbar from "./components/Navbar";
-import { createContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Routes, Route, Link } from "react-router-dom";
 import Home from "./pages/Home";
 import Articles from "./pages/Articles";
@@ -14,8 +14,8 @@ import Signout from "./pages/Signout";
 import MenuPositions from "./pages/MenuPositions";
 import Menus from "./pages/Menus";
 import axios from "axios";
-import DynamicModal from "./components/utils/DynamicModal";
 import { ModalProvider } from "./contexts/ModalContext";
+import OpenAi from "./pages/OpenAi";
 
 export default function App() {
   const [menuShow, setMenuShow] = useState(false);
@@ -73,6 +73,7 @@ export default function App() {
             <Route path="/menu-positions/:id" element={<Menus />} />
             <Route path="/categories" element={<Categories />} />
             <Route path="/articles" element={<Articles />} />
+            <Route path="/openai" element={<OpenAi />} />
             {/* <Route path="/signout" element={<Signout setMe={setMe} />} /> */}
           </Routes>
         </div>

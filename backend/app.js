@@ -1,13 +1,23 @@
 const express = require("express");
-
 const cors = require("cors");
 const fs = require("fs");
+
+const dotenv = require("dotenv");
+dotenv.config();
+
+const openaiPackage = require("openai");
+
+const configuration = new openaiPackage.Configuration({
+  apiKey: process.env.OPENAI_API_KEY,
+});
+const openai = new openaiPackage.OpenAIApi(configuration);
 
 const app = express();
 
 app.use(cors());
+app.use(express.json());
 
-const port = 8000;
+const port = process.env.PORT || 8000;
 
 let categories = JSON.parse(fs.readFileSync("categoryData.json", "utf8"));
 
@@ -42,11 +52,7 @@ app.delete("/categories/:id", (req, res) => {
   res.json(id);
 });
 
-const bodyParser = require("body-parser");
-const { match } = require("assert");
-const jsonParser = bodyParser.json();
-
-app.post("/categories", jsonParser, (req, res) => {
+app.post("/categories", (req, res) => {
   const { name } = req.body;
   const newCategory = { id: nextCatId++, name };
   categories.push(newCategory);
@@ -54,7 +60,7 @@ app.post("/categories", jsonParser, (req, res) => {
   res.json(newCategory);
 });
 
-app.put("/categories/:id", jsonParser, (req, res) => {
+app.put("/categories/:id", (req, res) => {
   const { id } = req.params;
   const { name } = req.body;
 
@@ -121,7 +127,7 @@ app.get("/menu-positions/:id", (req, res) => {
 
 let nextPosId = menuPositions.length + 1;
 
-app.post("/menu-positions", jsonParser, (req, res) => {
+app.post("/menu-positions", (req, res) => {
   const { name, alias } = req.body;
   const newPosition = { id: nextPosId++, name, alias };
   menuPositions.push(newPosition);
@@ -168,7 +174,7 @@ app.get("/menus/:positionAlias", (req, res) => {
   return res.json(result);
 });
 
-app.post("/menus", jsonParser, (req, res) => {
+app.post("/menus", (req, res) => {
   const { name, link, newTab, positionId, ordering } = req.body;
   const newMenu = { id: nextMenuId, name, link, newTab, positionId, ordering };
   menus = [...menus, newMenu];
@@ -181,6 +187,32 @@ app.delete("/menus/:id", (req, res) => {
   menus = menus.filter((row) => row.id !== Number(id));
   fs.writeFileSync("menus.json", JSON.stringify(menus));
   res.json(id);
+});
+
+app.get("/openai/generate", async (req, res) => {
+  let { sizeVariant, prompt } = req.query;
+  if (prompt === "" || prompt === undefined) {
+    res.status(400).json("Prompt required");
+  }
+  let size;
+  switch (sizeVariant) {
+    case "md":
+      size = "512x512";
+      break;
+    case "lg":
+      size = "1024x1024";
+      break;
+    case "sm":
+    default:
+      size = "256x256";
+      break;
+  }
+  const response = await openai.createImage({
+    prompt: prompt,
+    n: 1,
+    size: size,
+  });
+  res.json(response.data.data[0].url);
 });
 
 app.listen(port, () => {
