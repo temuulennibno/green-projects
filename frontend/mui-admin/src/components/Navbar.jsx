@@ -7,15 +7,15 @@ import { Avatar } from "@mui/material";
 import MuiAppBar from "@mui/material/AppBar";
 import { styled } from "@mui/material/styles";
 
-export const Navbar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
-  const AppBar = styled(MuiAppBar)(({ theme }) => ({
-    zIndex: theme.zIndex.drawer + 1,
-    transition: theme.transitions.create(["width", "margin"], {
-      easing: theme.transitions.easing.sharp,
-      duration: theme.transitions.duration.leavingScreen,
-    }),
-  }));
+const AppBar = styled(MuiAppBar)(({ theme }) => ({
+  zIndex: theme.zIndex.drawer + 1,
+  transition: theme.transitions.create(["width", "margin"], {
+    easing: theme.transitions.easing.sharp,
+    duration: theme.transitions.duration.leavingScreen,
+  }),
+}));
 
+export const Navbar = ({ open, handleDrawerClose, handleDrawerOpen }) => {
   return (
     <>
       <CssBaseline />

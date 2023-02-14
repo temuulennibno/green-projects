@@ -17,10 +17,10 @@ export const Layout = ({ children }) => {
     <Box sx={{ display: "flex" }}>
       <Navbar {...{ open, handleDrawerOpen, handleDrawerClose }} />
       <Sidebar open={open} />
-      <Bo x>
+      <Box>
         <DrawerHeader />
         {children}
-      </Bo>
+      </Box>
     </Box>
   );
 };
