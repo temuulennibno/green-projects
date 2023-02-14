@@ -1,22 +1,22 @@
-import Form from 'react-bootstrap/Form';
-import Button from 'react-bootstrap/Button';
-import { useState } from 'react';
-import { toast } from 'react-toastify';
-import axios from 'axios';
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
+import { useState } from "react";
+import { toast } from "react-toastify";
+import axios from "axios";
 
 export default function CategoryEdit({ afterEdit, category }) {
   const [name, setName] = useState(category?.name);
 
   const submit = () => {
     axios
-      .put('http://localhost:8000/categories/' + category.id, { name })
+      .put("http://localhost:8000/categories/" + category.id, { name })
       .then((res) => {
-        toast.success('Амжилттай нэмэгдлээ');
+        toast.success("Амжилттай нэмэгдлээ");
         afterEdit(res.data);
       })
       .catch((err) => {
         console.log(err);
-        toast.error('Алдаа гарлаа');
+        toast.error("Алдаа гарлаа");
       });
   };
 

@@ -1,11 +1,7 @@
-import { MiniDrawer } from "./components";
+import { Layout } from "./components/Layout";
 
 function App() {
-  return (
-    <>
-      <MiniDrawer />
-    </>
-  );
+  return <Layout>Hello world</Layout>;
 }
 
 export default App;
