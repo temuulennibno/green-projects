@@ -29,7 +29,7 @@ export const BreadCrumbs = ({ items }) => {
               key={index}
               color="inherit"
               component={RouterLink}
-              to={item.path}
+              to={item.link}
               sx={styles.link}
             >
               {item.icon && item.icon}
