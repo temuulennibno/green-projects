@@ -1,21 +1,16 @@
-import { Box, Button } from "@mui/material";
+import { Box } from "@mui/material";
+import { Route, Routes } from "react-router";
 import { Layout } from "./components/Layout";
-import { useToast } from "./hooks";
+import { CategoriesScreen, HomeScreen } from "./pages";
 
 function App() {
-  const showToast = useToast();
-
   return (
     <Layout>
       <Box sx={{ p: 5 }}>
-        <Button
-          variant="contained"
-          onClick={() => {
-            showToast("Hello toast");
-          }}
-        >
-          Toggle toast
-        </Button>
+        <Routes>
+          <Route path="/" element={<HomeScreen />} />
+          <Route path="/categories" element={<CategoriesScreen />} />
+        </Routes>
       </Box>
     </Layout>
   );
