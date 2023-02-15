@@ -1,17 +1,28 @@
-import { Box } from "@mui/material";
+import { Stack } from "@mui/material";
+import { blueGrey } from "@mui/material/colors";
 import { Route, Routes } from "react-router";
 import { Layout } from "./components/Layout";
 import { CategoriesScreen, HomeScreen } from "./pages";
 
+const bgColor = blueGrey[50];
+
+const wrapperStyle = {
+  p: 5,
+  bgcolor: bgColor,
+  width: "calc(100vw - 65px)",
+  minHeight: "calc(100vh - 65px)",
+  boxSizing: "border-box",
+};
+
 function App() {
   return (
     <Layout>
-      <Box sx={{ p: 5 }}>
+      <Stack sx={wrapperStyle}>
         <Routes>
           <Route path="/" element={<HomeScreen />} />
           <Route path="/categories" element={<CategoriesScreen />} />
         </Routes>
-      </Box>
+      </Stack>
     </Layout>
   );
 }
