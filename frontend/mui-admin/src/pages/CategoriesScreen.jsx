@@ -46,6 +46,7 @@ const breadCrumbs = [
 
 export const CategoriesScreen = () => {
   const [categories, setCategories] = useState([]);
+  const [pageSize, setPageSize] = useState(10);
 
   useEffect(() => {
     axios.get("http://localhost:8000/categories").then((res) => {
@@ -76,8 +77,9 @@ export const CategoriesScreen = () => {
           <DataGrid
             rows={categories}
             columns={columns}
-            pageSize={5}
-            rowsPerPageOptions={[5, 15, 20]}
+            pageSize={pageSize}
+            onPageSizeChange={(size) => setPageSize(size)}
+            rowsPerPageOptions={[5, 10, 20]}
           />
         </Box>
       </Stack>
