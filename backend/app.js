@@ -1,6 +1,7 @@
 const express = require("express");
 const cors = require("cors");
 const fs = require("fs");
+const shortid = require("shortid");
 
 const dotenv = require("dotenv");
 dotenv.config();
@@ -20,8 +21,6 @@ app.use(express.json());
 const port = process.env.PORT || 8000;
 
 let categories = JSON.parse(fs.readFileSync("categoryData.json", "utf8"));
-
-let nextCatId = categories.length;
 
 const updateCategoriesFile = () => {
   fs.writeFileSync("categoryData.json", JSON.stringify(categories));
@@ -47,14 +46,14 @@ app.get("/categories/:id", (req, res) => {
 
 app.delete("/categories/:id", (req, res) => {
   const { id } = req.params;
-  categories = categories.filter((row) => row.id !== Number(id));
+  categories = categories.filter((row) => row.id !== id);
   updateCategoriesFile();
   res.json(id);
 });
 
 app.post("/categories", (req, res) => {
   const { name } = req.body;
-  const newCategory = { id: nextCatId++, name };
+  const newCategory = { id: shortid.generate(), name };
   categories.push(newCategory);
   updateCategoriesFile();
   res.json(newCategory);
@@ -66,8 +65,8 @@ app.put("/categories/:id", (req, res) => {
 
   let updatedCat;
   categories = categories.map((row) => {
-    if (row.id === Number(id)) {
-      updatedCat = { id: Number(id), name };
+    if (row.id === id) {
+      updatedCat = { id: id, name };
       return updatedCat;
     }
     return row;
