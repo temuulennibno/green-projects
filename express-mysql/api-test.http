@@ -1,0 +1,11 @@
+GET http://localhost:8000/
+
+###
+POST http://localhost:8000/
+content-type: application/json
+
+{
+    "name":"Technology",
+    "slug": "tech",
+    "imgUrl" : ""
+}
