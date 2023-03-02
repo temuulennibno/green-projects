@@ -1,11 +1,11 @@
-GET http://localhost:8000/
+GET http://localhost:8000/categories
 
 ###
-POST http://localhost:8000/
+POST http://localhost:8000/categories
 content-type: application/json
 
 {
-    "name":"Technology",
-    "slug": "tech",
+    "name":"Car",
+    "slug": "car",
     "imgUrl" : ""
 }
