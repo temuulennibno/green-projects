@@ -9,3 +9,8 @@ content-type: application/json
     "slug": "car",
     "imgUrl" : ""
 }
+
+###
+GET http://localhost:8000/categories/3
+
+###
