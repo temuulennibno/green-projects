@@ -1,16 +1,24 @@
-GET http://localhost:8000/categories
+GET http://localhost:8000/users
 
 ###
-POST http://localhost:8000/categories
+POST http://localhost:8000/users
 content-type: application/json
 
 {
-    "name":"Car",
-    "slug": "car",
-    "imgUrl" : ""
+    "firstName":"Temuulen",
+    "lastName": "Narmandakh",
+    "birthDate" : "1998-07-11",
+    "email": "temuulen.m@pinecone.mn",
+    "phone": "96667432",
+    "password": "",
+    "imageUrl": ""
 }
 
 ###
-GET http://localhost:8000/categories/3
+GET http://localhost:8000/users/FrS1ifV8B8cvsP3F6jkuw
+
+
+###
+DELETE http://localhost:8000/users/FrS1ifV8B8cvsP3F6jkuw
 
 ###

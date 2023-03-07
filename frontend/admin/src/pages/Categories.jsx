@@ -4,9 +4,17 @@ import CategoryCreate from "../components/Categories/CategoryCreate";
 import CategoryEdit from "../components/Categories/CategoryEdit";
 import { useModal } from "../contexts/ModalContext";
 import { useCategories } from "../hooks/categories";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Categories() {
-  const [categories, setCategories] = useCategories();
+  const [categories, setCategories] = useState([]);
+
+  useEffect(() => {
+    axios.get("http://localhost:8000/categories").then((res) => {
+      setCategories(res.data);
+    });
+  }, []);
 
   const { setModalContent, setModalTitle, setModalShow } = useModal();
 
