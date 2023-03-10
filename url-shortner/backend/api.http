@@ -1,0 +1,10 @@
+POST http://localhost:8000/links
+Content-Type: application/json
+
+{
+    "url": "https://www.figma.com/file/Jpf9mRrnzut5hQjEnjoQBs/Green-Project-Structure?node-id=0%3A1"
+}
+
+###
+
+GET http://localhost:8000/oa9igYoNi
