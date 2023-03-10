@@ -1,5 +1,5 @@
 import express from "express";
-import { shorten } from "../services/link-service.js";
+import { shorten, isValidURL } from "../services/link-service.js";
 
 const router = express.Router();
 
@@ -9,7 +9,8 @@ router.get("/", (req, res) => {
 
 router.post("/", async (req, res) => {
   const { url } = req.body;
-  res.json(await shorten(url));
+  if (isValidURL(url)) res.json(await shorten(url));
+  else res.status(400).json("Invalid URL");
 });
 
 export default router;
