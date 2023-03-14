@@ -3,35 +3,7 @@ import { Box, Button, IconButton, Tooltip, Typography } from "@mui/material";
 import { Stack } from "@mui/system";
 import { BreadCrumbs } from "../components";
 import { DataGrid } from "@mui/x-data-grid";
-import { useEffect, useState } from "react";
-import axios from "axios";
-
-const columns = [
-  { field: "id", headerName: "#", width: 50 },
-  { field: "name", headerName: "Name", flex: 1 },
-  {
-    field: "",
-    headerName: "Actions",
-    width: 100,
-    sortable: false,
-    filterable: false,
-    headerAlign: "center",
-    renderCell: (params) => (
-      <Stack sx={{ flexDirection: "row" }}>
-        <Tooltip title="Edit">
-          <IconButton aria-label="edit" color="primary">
-            <Edit fontSize="inherit" />
-          </IconButton>
-        </Tooltip>
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete" color="secondary">
-            <Delete fontSize="inherit" />
-          </IconButton>
-        </Tooltip>
-      </Stack>
-    ),
-  },
-];
+import { useCrud } from "../hooks/useCrud";
 
 const breadCrumbs = [
   {
@@ -45,14 +17,45 @@ const breadCrumbs = [
 ];
 
 export const CategoriesScreen = () => {
-  const [categories, setCategories] = useState([]);
-  const [pageSize, setPageSize] = useState(10);
+  const {
+    items: categories,
+    pageSize,
+    setPageSize,
+    deleteItem,
+  } = useCrud("categories");
 
-  useEffect(() => {
-    axios.get("http://localhost:8000/categories").then((res) => {
-      setCategories(res.data);
-    });
-  }, []);
+  const columns = [
+    { field: "id", headerName: "#", width: 50 },
+    { field: "name", headerName: "Name", flex: 1 },
+    {
+      field: "",
+      headerName: "Actions",
+      width: 100,
+      sortable: false,
+      filterable: false,
+      headerAlign: "center",
+      renderCell: (params) => (
+        <Stack sx={{ flexDirection: "row" }}>
+          <Tooltip title="Edit">
+            <IconButton aria-label="edit" color="primary">
+              <Edit fontSize="inherit" />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton
+              aria-label="delete"
+              color="secondary"
+              onClick={() => {
+                deleteItem(params.row.id);
+              }}
+            >
+              <Delete fontSize="inherit" />
+            </IconButton>
+          </Tooltip>
+        </Stack>
+      ),
+    },
+  ];
 
   return (
     <>

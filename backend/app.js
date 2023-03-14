@@ -46,7 +46,7 @@ app.get("/categories/:id", (req, res) => {
 
 app.delete("/categories/:id", (req, res) => {
   const { id } = req.params;
-  categories = categories.filter((row) => row.id !== id);
+  categories = categories.filter((row) => row.id !== Number(id));
   updateCategoriesFile();
   res.json(id);
 });
