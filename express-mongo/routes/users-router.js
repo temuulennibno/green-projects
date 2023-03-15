@@ -31,7 +31,7 @@ router.put("/:id", async (req, res) => {
 
 router.delete("/:id", async (req, res) => {
   const { id } = req.params;
-  res.json(await deleteUser(id, user));
+  res.json(await deleteUser(id));
 });
 
 export default router;

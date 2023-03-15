@@ -4,7 +4,8 @@ import mongoose from "mongoose";
 const userModel = mongoose.model("User", userSchema);
 
 export const getUsers = async () => {
-  return await userModel.find({});
+  const users = await userModel.find({});
+  return users;
 };
 
 export const getUserById = async (id) => {
