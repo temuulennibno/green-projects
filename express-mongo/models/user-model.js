@@ -12,4 +12,4 @@ export const User = {
   },
 };
 
-export const UserSchema = new mongoose.Schema(User, { timestamps: true });
+export const userSchema = new mongoose.Schema(User, { timestamps: true });
