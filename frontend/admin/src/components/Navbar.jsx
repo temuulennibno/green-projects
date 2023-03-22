@@ -5,7 +5,7 @@ import NavbarWrapper from "./Navbar/NavbarWrapper";
 export default function Navbar({ onToggle }) {
   const menuItems = [];
   const dropdownItems = [
-    { label: "Profile", link: "#" },
+    { label: "Profile", link: "/profile" },
     { label: "Inbox", link: "#" },
     { label: "Settings", link: "#" },
     { label: "---", link: "#" },
