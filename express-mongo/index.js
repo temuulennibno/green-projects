@@ -8,7 +8,11 @@ import { nanoid } from "nanoid";
 import cloudinary from "cloudinary";
 import cors from "cors";
 
-import { createRestaurant, findNearest } from "./services/restaurantService.js";
+import {
+  createRestaurant,
+  findNearest,
+  findAllRestaurants,
+} from "./services/restaurantService.js";
 
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
@@ -66,6 +70,16 @@ app.post("/restaurants", async (req, res) => {
 });
 
 app.get("/restaurants", async (req, res) => {
+  try {
+    const response = await findAllRestaurants();
+    res.json(response);
+  } catch (e) {
+    console.log(e);
+    res.json("Error");
+  }
+});
+
+app.get("/restaurants/find", async (req, res) => {
   const { longitude, latitude } = req.body;
   try {
     console.log([longitude, latitude]);

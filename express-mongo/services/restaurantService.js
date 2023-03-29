@@ -5,6 +5,10 @@ export const createRestaurant = async ({ name, location }) => {
   return response;
 };
 
+export const findAllRestaurants = async () => {
+  return await restaurantModel.find({});
+};
+
 export const findNearest = async (location) => {
   const response = await restaurantModel.findOne({
     location: {
